@@ -890,6 +890,18 @@ THC_API void THNN_(SpatialReplicationPadding_updateGradInput)(
                   int padL, int padR,
                   int padT, int padB);
 
+TH_API void THNN_(SpatialSliceExtractorTrilinear_updateOutput)(
+                  THCState *state,
+                  THCTensor *input,
+                  THCTensor *grid,
+                  THCTensor *output);
+
+TH_API void THNN_(SpatialSliceExtractorTrilinear_updateGradInput)(
+                  THCState *state,
+                  THCTensor *input, THCTensor *gradInput,
+                  THCTensor *grid, THCTensor *gradGrid,
+                  THCTensor *gradOutput);
+
 THC_API void THNN_(SpatialSubSampling_updateOutput)(
                   THCState *state,
                   THCTensor *input,

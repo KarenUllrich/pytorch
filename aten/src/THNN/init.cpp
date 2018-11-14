@@ -225,3 +225,6 @@
 
 #include "generic/SpatialClassNLLCriterion.c"
 #include "THGenerateFloatTypes.h"
+
+#include "generic/SpatialSliceExtractorTrilinear.c"
+#include "THGenerateFloatTypes.h"

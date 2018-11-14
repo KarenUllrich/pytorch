@@ -2315,6 +2315,38 @@ def affine_grid(theta, size):
     """
     return vision.affine_grid_generator(theta, size)
 
+def slice_extractor(input, grid, mode='trilinear'):
+    r"""Given an :attr:`input` and a flow-field :attr:`grid`, computes the
+    `output` using input pixel locations from the grid.
+
+    Uses bilinear interpolation to sample the input pixels.
+    Currently, only spatial (5 dimensional) inputs are supported.
+
+    For each output location, :attr:`grid` has `x`, `y` and `z`
+    input pixel locations which are used to compute output.
+
+    :attr:`grid` has values in the range of `[-1, 1]`. This is because the
+    pixel locations are normalized by the input height and width.
+
+    For example, values: x: -1, y: -1 is the left-top pixel of the input
+                 values: x: 1, y: 1 is the right-bottom pixel of the input
+
+    If :attr:`grid` has values outside the range of `[-1, 1]`, those locations
+    are ignored (i.e. 0 is used as a contribution to the bilinear interpolation)
+
+    .. Note:: This function is used in building Spatial Transformer Networks
+
+    Args:
+        input (Variable): input batch of images (N x C x IH x IW x ID)
+        grid (Variable): flow-field of size (N x OH x OW x 3)
+
+    Returns:
+        output (Variable): output Tensor (N x C x OH x OW)
+
+    """
+    batch_size, channels, in_height, in_width, in_depth = input.size()
+    return SpatialSliceExtractorTrilinear.apply(input, grid)
+
 
 def pad(input, pad, mode='constant', value=0):
     r"""Pads tensor.

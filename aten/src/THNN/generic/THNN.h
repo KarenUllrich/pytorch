@@ -692,6 +692,19 @@ TH_API void THNN_(SpatialMaxUnpooling_updateGradInput)(
           THIndexTensor *indices,
           int owidth, int oheight);
 
+TH_API void THNN_(SpatialSliceExtractorTrilinear_updateOutput)(
+          THNNState *state,
+          THTensor *input,
+          THTensor *grid,
+          THTensor *output);
+
+TH_API void THNN_(SpatialSliceExtractorTrilinear_updateGradInput)(
+          THNNState *state,
+          THTensor *input, THTensor *gradInput,
+          THTensor *grid, THTensor *gradGrid,
+          THTensor *gradOutput);
+
+
 TH_API void THNN_(SpatialUpSamplingNearest_updateOutput)(
           THNNState *state,
           THTensor *input,
